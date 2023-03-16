@@ -4,7 +4,7 @@ namespace LotoClassNS
 {
     // Clase que almacena una combinación de la lotería
     //
-    public class loto
+    public class LotoDAS2223 
     {
         // definición de constantes
         public const int MAX_NUMEROS = 6;
@@ -19,9 +19,13 @@ namespace LotoClassNS
             set => _nums = value; 
         }
 
-        // En el caso de que el constructor sea vacío, se genera una combinación aleatoria correcta
-        //
-        public loto()
+        /// <summary>
+        /// <para>Constructor vacío.</para>
+        /// </summary>
+        /// <remarks>
+        /// Se genera una combinación aleatoria correcta.
+        /// </remarks>
+        public LotoDAS2223()
         {
             Random r = new Random();    // clase generadora de números aleatorios
 
@@ -43,9 +47,15 @@ namespace LotoClassNS
             ok=true;
         }
 
-        // La segunda forma de crear una combinación es pasando el conjunto de números
-        // misnums es un array de enteros con la combinación que quiero crear (no tiene porqué ser válida)
-        public loto(int[] misnums)  // misnumeros: combinación con la que queremos inicializar la clase
+        /// <summary>
+        /// Constructor con Parámetro <paramref name="misnums"/>.
+        /// </summary>
+        /// <param name="misnums">Inserta el array de números.
+        /// </param>
+        /// <remarks>
+        /// misnums es un array de enteros con la combinación que quiero crear (no tiene porqué ser válida)
+        /// </remarks>
+        public LotoDAS2223(int[] misnums)  // misnumeros: combinación con la que queremos inicializar la clase
         {
             for (int i=0; i<MAX_NUMEROS; i++)
                 if (misnums[i]>=NUMERO_MENOR && misnums[i]<=NUMERO_MAYOR) {
@@ -65,12 +75,14 @@ namespace LotoClassNS
                     ok=false;     // La combinación no es válida, terminamos
                     return;
                 }
-	    ok=true;
+	            ok=true;
         }
 
-        // Método que comprueba el número de aciertos
-        // premi es un array con la combinación ganadora
-        // se devuelve el número de aciertos
+        /// <summary>
+        /// Método que comprueba el número de aciertos.
+        /// </summary>
+        /// <param name="premi">Parámetro array con la combinación de números ganadora.</param>
+        /// <returns>Se devuelve el número de aciertos (tipo entero, int).</returns>
         public int comprobar(int[] premi)
         {
             int a=0;                    // número de aciertos
