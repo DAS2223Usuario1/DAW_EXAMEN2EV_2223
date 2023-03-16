@@ -13,9 +13,15 @@ namespace ExamenLoto
 {
     public partial class Examen2EVDAS2223 : Form
     {
-        public LotoDAS2223 miLoto, miGanadora;
+        private LotoDAS2223 miGanadora;
+        private LotoDAS2223 miLoto;
         private TextBox[] combinacion = new TextBox[6]; // Estos arrays se usan para recorrer de manera más sencilla los controles
         private TextBox[] ganadora = new TextBox[6];
+        
+
+        public LotoDAS2223 MiLoto { get => miLoto; set => miLoto = value; }
+        public LotoDAS2223 MiGanadora { get => miGanadora; set => miGanadora = value; }
+
         public Examen2EVDAS2223()
         {
             InitializeComponent();
@@ -25,17 +31,17 @@ namespace ExamenLoto
             combinacion[3] = txtNumero4; ganadora[3] = txtGanadora4;
             combinacion[4] = txtNumero5; ganadora[4] = txtGanadora5;
             combinacion[5] = txtNumero6; ganadora[5] = txtGanadora6;
-            miGanadora = new LotoDAS2223(); // generamos la combinación ganadora
+            MiGanadora = new LotoDAS2223(); // generamos la combinación ganadora
             for (int i = 0; i < 6; i++)
-                ganadora[i].Text = Convert.ToString(miGanadora.Nums[i]);
+                ganadora[i].Text = Convert.ToString(MiGanadora.Nums[i]);
 
         }
 
         private void btGenerar_Click(object sender, EventArgs e)
         {
-            miLoto = new LotoDAS2223(); // usamos constructor vacío, se genera combinación aleatoria
+            MiLoto = new LotoDAS2223(); // usamos constructor vacío, se genera combinación aleatoria
             for ( int i=0; i<6; i++ )
-                combinacion[i].Text = Convert.ToString(miLoto.Nums[i]);
+                combinacion[i].Text = Convert.ToString(MiLoto.Nums[i]);
         }
 
         private void btValidar_Click(object sender, EventArgs e)
@@ -43,8 +49,8 @@ namespace ExamenLoto
             int[] nums = new int[6];    
             for (int i = 0; i < 6; i++)
                 nums[i] = Convert.ToInt32(combinacion[i].Text);
-            miLoto = new LotoDAS2223(nums);
-            if (miLoto.ok)
+            MiLoto = new LotoDAS2223(nums);
+            if (MiLoto.Ok)
                 MessageBox.Show("Combinación válida");
             else
                 MessageBox.Show("Combinación no válida");
@@ -55,13 +61,13 @@ namespace ExamenLoto
             int[] nums = new int[6];
             for (int i = 0; i < 6; i++)
                 nums[i] = Convert.ToInt32(combinacion[i].Text);
-            miLoto = new LotoDAS2223(nums);
-            if (miLoto.ok)
+            MiLoto = new LotoDAS2223(nums);
+            if (MiLoto.Ok)
             {
                 nums = new int[6];
                 for (int i = 0; i < 6; i++)
                     nums[i] = Convert.ToInt32(combinacion[i].Text);
-                int aciertos = miGanadora.comprobar(nums);
+                int aciertos = MiGanadora.comprobar(nums);
                 if (aciertos < 3)
                     MessageBox.Show("No ha resultado premiada");
                 else

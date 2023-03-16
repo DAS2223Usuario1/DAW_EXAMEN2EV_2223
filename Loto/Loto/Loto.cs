@@ -11,13 +11,14 @@ namespace LotoClassNS
         public const int NUMERO_MENOR = 1;
         public const int NUMERO_MAYOR = 49;
         
-        private int[] _nums = new int[MAX_NUMEROS];   // numeros de la combinación
-        public bool ok = false;      // combinación válida (si es aleatoria, siempre es válida, si no, no tiene porqué)
+        private int[] numerosCombinacion = new int[MAX_NUMEROS];   // numeros de la combinación
+        private bool ok = false;      // combinación válida (si es aleatoria, siempre es válida, si no, no tiene porqué)
 
         public int[] Nums { 
-            get => _nums; 
-            set => _nums = value; 
+            get => numerosCombinacion; 
+            set => numerosCombinacion = value; 
         }
+        public bool Ok { get => ok; set => ok = value; }
 
         /// <summary>
         /// <para>Constructor vacío.</para>
@@ -32,7 +33,7 @@ namespace LotoClassNS
             int i=0, j, num;
 
             do             // generamos la combinación
-            {                       
+            {     //                  
                 num = r.Next(NUMERO_MENOR, NUMERO_MAYOR + 1);     // generamos un número aleatorio del 1 al 49
                 for (j=0; j<i; j++)    // comprobamos que el número no está
                     if (Nums[j]==num)
@@ -44,7 +45,7 @@ namespace LotoClassNS
                 }
             } while (i<MAX_NUMEROS);
 
-            ok=true;
+            Ok=true;
         }
 
         /// <summary>
@@ -57,7 +58,7 @@ namespace LotoClassNS
         /// </remarks>
         public LotoDAS2223(int[] misnums)  // misnumeros: combinación con la que queremos inicializar la clase
         {
-            for (int i=0; i<MAX_NUMEROS; i++)
+            for (int i=0; i<MAX_NUMEROS; i++) // TODO faltan llaves
                 if (misnums[i]>=NUMERO_MENOR && misnums[i]<=NUMERO_MAYOR) {
                     int j;
                     for (j=0; j<i; j++) 
@@ -66,16 +67,16 @@ namespace LotoClassNS
                     if (i==j)
                         Nums[i]=misnums[i]; // validamos la combinación
                     else {
-                        ok=false;
+                        Ok=false;
                         return;
                     }
                 }
                 else
                 {
-                    ok=false;     // La combinación no es válida, terminamos
+                    Ok=false;     // La combinación no es válida, terminamos
                     return;
                 }
-	            ok=true;
+	            Ok=true;
         }
 
         /// <summary>
