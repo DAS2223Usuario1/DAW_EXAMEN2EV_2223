@@ -12,13 +12,13 @@ namespace LotoClassNS
         public const int NUMERO_MAYOR = 49;
         
         private int[] numerosCombinacion = new int[MAX_NUMEROS];   // numeros de la combinación
-        private bool ok = false;      // combinación válida (si es aleatoria, siempre es válida, si no, no tiene porqué)
+        private bool combinacionValida = false;      // combinación válida (si es aleatoria, siempre es válida, si no, no tiene porqué)
 
-        public int[] Nums { 
+        public int[] NumerosCombinacion { 
             get => numerosCombinacion; 
             set => numerosCombinacion = value; 
         }
-        public bool Ok { get => ok; set => ok = value; }
+        public bool CombinacionValida { get => combinacionValida; set => combinacionValida = value; }
 
         /// <summary>
         /// <para>Constructor vacío.</para>
@@ -36,16 +36,16 @@ namespace LotoClassNS
             {     //                  
                 num = r.Next(NUMERO_MENOR, NUMERO_MAYOR + 1);     // generamos un número aleatorio del 1 al 49
                 for (j=0; j<i; j++)    // comprobamos que el número no está
-                    if (Nums[j]==num)
+                    if (NumerosCombinacion[j]==num)
                         break;
                 if (i==j)               // Si i==j, el número no se ha encontrado en la lista, lo añadimos
                 {
-                    Nums[i]=num;
+                    NumerosCombinacion[i]=num;
                     i++;
                 }
             } while (i<MAX_NUMEROS);
 
-            Ok=true;
+            CombinacionValida = true;
         }
 
         /// <summary>
@@ -58,39 +58,43 @@ namespace LotoClassNS
         /// </remarks>
         public LotoDAS2223(int[] misnums)  // misnumeros: combinación con la que queremos inicializar la clase
         {
-            for (int i=0; i<MAX_NUMEROS; i++) // TODO faltan llaves
-                if (misnums[i]>=NUMERO_MENOR && misnums[i]<=NUMERO_MAYOR) {
+            for (int i = 0; i < MAX_NUMEROS; i++)
+            {// Añadidas llaves.
+                if (misnums[i] >= NUMERO_MENOR && misnums[i] <= NUMERO_MAYOR)
+                {
                     int j;
-                    for (j=0; j<i; j++) 
-                        if (misnums[i]==Nums[j])
+                    for (j = 0; j < i; j++)
+                        if (misnums[i] == NumerosCombinacion[j])
                             break;
-                    if (i==j)
-                        Nums[i]=misnums[i]; // validamos la combinación
-                    else {
-                        Ok=false;
+                    if (i == j)
+                        NumerosCombinacion[i] = misnums[i]; // validamos la combinación
+                    else
+                    {
+                        CombinacionValida = false;
                         return;
                     }
                 }
                 else
                 {
-                    Ok=false;     // La combinación no es válida, terminamos
+                    CombinacionValida = false;     // La combinación no es válida, terminamos
                     return;
                 }
-	            Ok=true;
+                CombinacionValida = true;
+            }
         }
 
         /// <summary>
         /// Método que comprueba el número de aciertos.
         /// </summary>
-        /// <param name="premi">Parámetro array con la combinación de números ganadora.</param>
+        /// <param name="combinacionGanadora">Parámetro array con la combinación de números ganadora.</param>
         /// <returns>Se devuelve el número de aciertos (tipo entero, int).</returns>
-        public int comprobar(int[] premi)
+        public int comprobar(int[] combinacionGanadora)
         {
-            int a=0;                    // número de aciertos
+            int aciertos=0;                    // número de aciertos
             for (int i=0; i<MAX_NUMEROS; i++)
                 for (int j=0; j<MAX_NUMEROS; j++)
-                    if (premi[i]==Nums[j]) a++;
-            return a;
+                    if (combinacionGanadora[i]==NumerosCombinacion[j]) aciertos++;
+            return aciertos;
         }
     }
 

@@ -33,7 +33,7 @@ namespace ExamenLoto
             combinacion[5] = txtNumero6; ganadora[5] = txtGanadora6;
             MiGanadora = new LotoDAS2223(); // generamos la combinación ganadora
             for (int i = 0; i < 6; i++)
-                ganadora[i].Text = Convert.ToString(MiGanadora.Nums[i]);
+                ganadora[i].Text = Convert.ToString(MiGanadora.NumerosCombinacion[i]);
 
         }
 
@@ -41,7 +41,7 @@ namespace ExamenLoto
         {
             MiLoto = new LotoDAS2223(); // usamos constructor vacío, se genera combinación aleatoria
             for ( int i=0; i<6; i++ )
-                combinacion[i].Text = Convert.ToString(MiLoto.Nums[i]);
+                combinacion[i].Text = Convert.ToString(MiLoto.NumerosCombinacion[i]);
         }
 
         private void btValidar_Click(object sender, EventArgs e)
@@ -50,7 +50,7 @@ namespace ExamenLoto
             for (int i = 0; i < 6; i++)
                 nums[i] = Convert.ToInt32(combinacion[i].Text);
             MiLoto = new LotoDAS2223(nums);
-            if (MiLoto.Ok)
+            if (MiLoto.CombinacionValida)
                 MessageBox.Show("Combinación válida");
             else
                 MessageBox.Show("Combinación no válida");
@@ -62,7 +62,7 @@ namespace ExamenLoto
             for (int i = 0; i < 6; i++)
                 nums[i] = Convert.ToInt32(combinacion[i].Text);
             MiLoto = new LotoDAS2223(nums);
-            if (MiLoto.Ok)
+            if (MiLoto.CombinacionValida)
             {
                 nums = new int[6];
                 for (int i = 0; i < 6; i++)
